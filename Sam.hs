@@ -1,5 +1,5 @@
 {-# LANGUAGE BangPatterns #-}
-{- compile with -XNoMonomorphismRestriction -}
+{-# LANGUAGE NoMonomorphismRestriction #-}
 module Sam where
 
 import Data.List

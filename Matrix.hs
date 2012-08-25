@@ -1,5 +1,6 @@
+{-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE FlexibleContexts #-}
 module Matrix where
-{- compile with -XFlexibleContexts -}
 
 import Sam
 import Grid hiding (diagonal)
