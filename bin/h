@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ghc $1.hs -o $1.out  $ghcopts
+
+if [ $? -eq 0 ]
+then ./$1.out ${@:2}
+fi

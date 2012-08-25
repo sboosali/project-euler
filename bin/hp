@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+
+ghc  $1.hs -o $1.out  -prof -auto-all -caf-all -rtsopts  -fforce-recomp  $ghcopts
+
+if [ $? -eq 0 ]
+then time ./$1.out -RTS ${@:2} +RTS -p -K1000M
+fi
