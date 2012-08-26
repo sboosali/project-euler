@@ -62,17 +62,8 @@ assert c = if c then return () else error "assertion failure"
 
 todo = error "TODO"
 
-{-
-cross as bs = cross' as bs [] where
-  cross' []     ys     xys = reverse xys
-  cross' (x:xs) []     xys = cross' xs bs xys
-  cross' (x:xs) (y:ys) xys = cross' ys $ (x,y):xys
--}
-cross as bs = cross' as bs where
- cross' []     ys     = []
- cross' (x:xs) []     = cross' xs bs
- cross' (x:xs) (y:ys) = (x,y) : cross' (x:xs) ys
-
+cross xs ys = [(x,y) | x <- xs, y <- ys]
+cross3 xs ys zs = [(x,y,z) | x <- xs, y <- ys, z <- zs]
 
 replace x y zs = map (\z -> if z==x then y else z) zs
 
