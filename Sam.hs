@@ -62,8 +62,12 @@ assert c = if c then return () else error "assertion failure"
 
 todo = error "TODO"
 
+
 cross xs ys = [(x,y) | x <- xs, y <- ys]
 cross3 xs ys zs = [(x,y,z) | x <- xs, y <- ys, z <- zs]
+-- import Control.Monad
+-- cross = liftM2 (,)
+-- lift the binary constructor 'make tuple' to (in particular) the list monad
 
 replace x y zs = map (\z -> if z==x then y else z) zs
 
