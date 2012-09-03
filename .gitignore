@@ -8,3 +8,4 @@ cabal-dev
 *.prof
 X*
 *.out
+tmp.hs
