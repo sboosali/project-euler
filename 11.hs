@@ -21,7 +21,7 @@
 import Eleven
 import Sam
 import Grid
-import Matrix hiding (main)
+import Matrix
 
 import Prelude hiding ((^^), lines)
 import Data.List hiding (lines)

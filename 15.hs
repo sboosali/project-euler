@@ -2,17 +2,11 @@
 -- dp
 
 import Sam
-import Matrix hiding (main)
+import Matrix
 import Grid
 
 import Data.Array.Unboxed
 
--- assumes  length xs == n^2
-listToGrid :: [a] -> Grid a
-listToGrid xs = listToGrid' (sqrtI $ length xs) xs
-  where listToGrid' _ [] = []
-        listToGrid' n ys = xs : listToGrid' n zs
-          where (xs,zs) = splitAt n ys
 
 -- pascal's triangle
 pascalsTriangle :: Int -> Matrix Int
@@ -27,7 +21,7 @@ pascalsTriangle n = subMatrix (2,2) (d,d) $ pascalsTriangle' 3 m
         --  <- the only way to get to the upper left corner is to start there
         pascalsTriangle' :: Int -> Matrix Int -> Matrix Int
         pascalsTriangle' i m
-          | i > d = m
+          | i+2 > d = m
           | otherwise =
             pascalsTriangle' (i+1) $ (m // [( (h,w), m!(h-1,w) + m!(h,w-1) )
                                   | (h,w) <- zip [2..i] $ reverse [2..i]])
@@ -38,12 +32,14 @@ pascalsTriangle n = subMatrix (2,2) (d,d) $ pascalsTriangle' 3 m
 
 f n = (pascalsTriangle $ m)!(m,m) where m = n+1
 
-main = do
-  let k = 2
-  printGrid $ listToGrid $ (elems $ pascalsTriangle k)
+gmap f grid = map (map f) grid
 
+showPascalsTriangle = showGrid . map (filter (/=0)) . toGrid . elems
+printPascalsTriangle = putStrLn . showPascalsTriangle
+
+main = do
   let k = 3
-  printGrid $ listToGrid $ (elems $ pascalsTriangle k)
+  printPascalsTriangle $ pascalsTriangle k
 
   assert $ f 2 == 6
   assert $ f 3 == 20
