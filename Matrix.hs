@@ -6,6 +6,8 @@ import Sam
 import Grid hiding (diagonal)
 
 import Data.Array.Unboxed
+import Control.Arrow
+
 
 type IJx = (Int,Int)
 type Matrix = UArray IJx -- UArray index_t elem_t
@@ -49,26 +51,5 @@ m = toMatrix [[1,2],
               [3,4],
               [5,6]]
 
-
-
-
-
-
-
-
-
-
-{-
-f len grid = foldl' max 0 $ map (f' matrix) (cross low high)
-  where k           = len-1
-        matrix      = toMatrix $ (pad 1 ^^ k) grid
-        (low, high) = kBounds k matrix
-        f' m (i,j)  = foldl' max 0 $ map product (snakes seen k)
-          where neighborhood  = subMatrix (i-k,j-k) (i+k,j+k) matrix
-                (ul, br) = bounds neighborhood -- (upper left, bottom right)
-                seen = 
-                snakes seen k = todo
--}
-
-main = do
-  print 1
+showMatrix = elems >>> toGrid >>> showGrid
+printMatrix = putStrLn . showMatrix

@@ -5,6 +5,7 @@ module Sam where
 import Data.List
 import Prelude hiding ((^^))
 import Data.Array.Unboxed
+import Control.Arrow
 
 -- assumes nonnegative integer
 infixr 9 ^^
@@ -19,6 +20,7 @@ f ^^ n = f . (f ^^(n-1))
 divides x y = y `mod` x == 0
 sqrtI = ceiling . sqrt . fromIntegral
 takeUntil p = takeWhile $ not . p
+dropUntil p = dropWhile $ not . p
 nInf = ceiling $ -1/0
 million = 1000000
 
@@ -52,12 +54,15 @@ sandwich x xs = [x] ++ xs ++ [x]
 --replace a b = join b . split a
 
 showGrid = ('\n':) . unlines . (map (clean . show))
- where clean = replace ']' ' ' . replace '[' ' ' . replace ',' ' '
+ where clean = {-replace ' ' '\t' .-} replace ']' ' ' . replace '[' ' ' . replace ',' ' '
 printGrid = putStrLn . showGrid
 
 
 assert :: Monad m => Bool -> m ()
 assert c = if c then return () else error "assertion failure"
+
+ass :: Monad m => String -> Bool -> m ()
+ass msg c = if c then return () else error msg
 
 
 todo = error "TODO"
@@ -81,3 +86,6 @@ map' f xs = map f' xs
  where f' !x = f x
 
 
+infixr 1 ==>
+(==>) :: a -> (a -> b) -> b
+x ==> f = f x

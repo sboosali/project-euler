@@ -42,3 +42,9 @@ dropRow = tail
 dropCol :: Grid a -> Grid a
 dropCol = map tail
 
+-- assumes  length xs == n^2
+toGrid :: [a] -> Grid a
+toGrid xs = listToGrid' (sqrtI $ length xs) xs
+  where listToGrid' _ [] = []
+        listToGrid' n ys = xs : listToGrid' n zs
+          where (xs,zs) = splitAt n ys
